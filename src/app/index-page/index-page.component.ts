@@ -19,7 +19,7 @@ import DataSource, { type ApiData } from 'src/utils/datasource';
     <ng-template #searchResultBlock>
       <h2 style="align-self: center" *ngIf="searchQuery.trim().length === 0; else userBlock">Find someone now!</h2>  
       <ng-template #userBlock>
-        <h2 style="align-self: center" *ngIf="user === null; else foundUserBlock">
+        <h2 style="align-self: center; text-align: center" *ngIf="user === null; else foundUserBlock">
           No user found or some kind of error happened :(
         </h2>
         <ng-template #foundUserBlock>
@@ -79,6 +79,7 @@ export class IndexPageComponent implements OnInit, OnDestroy {
 
           this.loading = true
           this.user = await DataSource.getUser(this.search).catch(() => null)
+          console.debug(`got ${JSON.stringify(this.user)} in response`)
           this.loading = false
         })
     )

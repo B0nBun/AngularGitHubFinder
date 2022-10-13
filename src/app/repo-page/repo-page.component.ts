@@ -10,6 +10,9 @@ interface Repository {
   readme : NonNullable<ApiData['readme']>['content'] | null
 }
 
+// Если репозитория не существует, то вместо repository not found
+// Выводится languages weren't found, readme not found
+
 @Component({
   selector: 'app-repo-page',
   template: `
@@ -94,6 +97,9 @@ export class RepoPageComponent implements OnInit, OnDestroy {
         this.owner = params['owner'] as string
 
         this.loading = true
+
+        console.debug(`repo with repoName:${this.repoName} owner:${this.owner}`)
+        
         const repo = await Promise.all([
           DataSource.getRepositoryLanguages(this.owner, this.repoName).catch(_ => null),
           DataSource.getRepositoryReadme(this.owner, this.repoName).catch(_ => null)
@@ -102,6 +108,8 @@ export class RepoPageComponent implements OnInit, OnDestroy {
           return null
         })
         this.loading = false
+
+        console.debug(`repo reponse: ${JSON.stringify(repo)}`)
 
         if (repo === null) {
           this.repo = null

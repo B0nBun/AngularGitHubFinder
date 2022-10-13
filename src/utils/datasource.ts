@@ -2,6 +2,10 @@ const baseUrl = "https://api.github.com/"
 
 const get = <T extends unknown>(relativeUrl : string) : Promise<T> => {
     const url = new URL(relativeUrl, baseUrl).href
+    if ((window as any).debug) {
+        console.debug(`get request to ${url}`)
+    }
+    
     return fetch(url, {
         headers : {
             Accept : 'application/vnd.github+json',
