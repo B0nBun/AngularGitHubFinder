@@ -15,7 +15,7 @@ import DataSource, { type ApiData } from 'src/utils/datasource';
         <ng-template #reposBlock>
           <button class="close-repos-button" (click)="closeRepos()" >close</button>
           <li class="repo-item" *ngFor="let repo of repos">
-            <a [routerLink]="getRepoHref(user.login, repo.name)">{{repo.name}} <i class="repo-desc">{{repo.name}}</i></a>
+            <a [routerLink]="getRepoHref(user.login, repo.name)">{{repo.name}} <i class="repo-desc">{{repo.description}}</i></a>
           </li>
           <h3 style="margin-left: .8rem; margin-top: 1rem;" *ngIf="repos === null || repos.length == 0">No repositories</h3>
         </ng-template>
