@@ -12,7 +12,7 @@ const get = <T extends unknown>(relativeUrl : string) : Promise<T> => {
         }
     })
     .then(response => {
-        if (response.statusText !== 'OK') {
+        if (response.statusText.length == 0 || response.statusText !== 'OK') {
             // Ошибка для того, чтобы от catch был смысл
             // (мне так семантически больше нравится)
             throw new Error(`The request failed with status ${response.status}`)
