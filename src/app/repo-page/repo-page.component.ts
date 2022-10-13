@@ -42,7 +42,9 @@ interface Repository {
           <pre *ngIf="repository.readme as readme; else readmeNotFoundBlock">
             {{readme}}
           </pre>
-          <h2>\`Readme\` not found</h2>
+          <ng-template #readmeNotFoundBlock>
+            <h2>\`Readme\` not found</h2>
+          </ng-template>
         </section>
         <ng-template #readmeNotFoundBlock>
         </ng-template>
