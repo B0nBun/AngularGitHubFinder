@@ -20,7 +20,7 @@ import DataSource, { type ApiData } from 'src/utils/datasource';
       <h2 style="align-self: center" *ngIf="searchQuery.trim().length === 0; else userBlock">Find someone now!</h2>  
       <ng-template #userBlock>
         <h2 style="align-self: center" *ngIf="user === null; else foundUserBlock">
-          No user found :(
+          No user found or some kind of error happened :(
         </h2>
         <ng-template #foundUserBlock>
           <user-card [user]="user!"></user-card>
