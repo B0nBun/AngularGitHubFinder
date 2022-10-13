@@ -17,6 +17,7 @@ const get = <T extends unknown>(relativeUrl : string) : Promise<T> => {
             // (мне так семантически больше нравится)
             throw new Error(`The request failed with status ${response.status}`)
         }
+        console.debug(`First then in 'get' function, response:`, response)
         return response
     })
     .then(response => response.json() as T)

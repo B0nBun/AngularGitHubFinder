@@ -75,10 +75,15 @@ export class IndexPageComponent implements OnInit, OnDestroy {
           // Запрос делается здесь, а не в евенте потому что получить query параметры синхронно нельзя
           // И хотя бы первый запрос при переходе на /?query=search сделать здесь в любом случае придется
 
+          console.debug(`subscription to query params called with query: ${query}`)
+          
           if (this.search.trim().length === 0) return
 
           this.loading = true
-          this.user = await DataSource.getUser(this.search).catch(() => null)
+          this.user = await DataSource.getUser(this.search).catch(e => {
+            console.error(e)
+            return null
+          })
           console.debug(`got ${JSON.stringify(this.user)} in response`)
           this.loading = false
         })
