@@ -1,0 +1,111 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+loader {
+    --loader-width: 5rem;
+    --loader-b-width: 5px;
+}
+
+.full-name a {
+    color: inherit;
+}
+
+.full-name a:hover, .full-name a:focus {
+    color: #58a6ff;
+    outline: none
+}
+
+.language-reset-button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: inherit;
+    border-radius: .5em;
+    padding: .2em .5em;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    cursor: pointer;
+}
+
+.language-reset-button:hover, .language-reset-button:focus {
+    border-color: #58a6ff;
+    color: #58a6ff;
+}
+
+.language-reset-button:disabled {
+    opacity: .5;
+    cursor: default;
+    color: inherit;
+    border-color: inherit
+}
+
+.language-range {
+    display: flex;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    width: 300px;
+    height: 10px;
+    border-radius: 999vh;
+}
+
+.language-range-part {
+    display: block;
+    height: 100%;
+    width: var(--percentage);
+    background-color: #666;
+}
+
+.language-range-part:hover {
+    opacity : .8;
+    cursor: pointer;
+}
+
+.language-range-part.active {
+    background-color: var(--language-color);
+}
+
+.languages-list {
+    list-style-type: '- ';
+}
+
+.languages-list li {
+    color : inherit;
+    cursor: pointer;
+}
+
+.languages-list li:hover {
+    opacity : .8;
+}
+
+.languages-list li.active {
+    color : var(--language-color);
+}
+
+.languages-list i {
+    opacity: .5;
+}
+
+.readme-section {
+    position: relative;
+    padding: 2em;
+    background-color: #010409;
+    border-radius: .5em;
+}
+
+@media (max-width: 700px) {
+    .readme-section {
+        padding: 1em;
+    }
+}
+
+.readme-section pre {
+    max-width: 100%;
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}

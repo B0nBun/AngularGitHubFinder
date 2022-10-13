@@ -1,0 +1,11 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+loader {
+    --loader-b-width: 5px;
+    --loader-width: 5rem;
+    align-self: center;
+}

@@ -1,0 +1,136 @@
+.user-card {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding-top: 1.5rem;
+    background-color: #010409;
+    border-radius: .75rem;
+    border: 2px solid #616469;
+    transition: border .2s ease-in-out;
+    max-width: 475px;
+}
+
+.user-card:focus-within {
+    border: 2px solid #58a6ff;
+}
+
+.info {
+    padding: 0 2rem;
+    display: grid;
+    grid-template-areas:
+        "avatar name"
+        "avatar login";
+    grid-template-columns: 5em auto;
+    gap: 0 1rem;
+}
+
+@media (max-width: 700px) {
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+    }
+}
+
+.avatar {
+    grid-area : avatar;
+    border-radius: 50%;
+}
+
+.user-login {
+    grid-area : login;
+    font-size: 2rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.user-login:hover, .user-login:focus {
+    text-decoration: underline;
+}
+
+.user-name {
+    grid-area : name;
+    opacity: .5;
+}
+
+.user-name:hover {
+    opacity: .8;
+}
+
+.repos-button {
+    background-color: transparent;
+    color: inherit;
+    font-size: 1.3rem;
+    padding: .5rem 0;
+    border-radius: 0 0 .75rem .75rem;
+    border: none;
+    border-top: 2px solid #616469;
+    outline: none;
+    cursor: pointer;
+}
+
+.repos-button:focus {
+    border-top: 2px solid #58a6ff;
+    color: #58a6ff;
+}
+
+.repos-button:hover {
+    color: #58a6ff;
+}
+
+.close-repos-button {
+    background-color: transparent;
+    align-self: start;
+    border: 1px solid #616469;
+    border-radius: .2em;
+    padding: .2em .5em;
+    color: inherit;
+    cursor: pointer;
+    margin-left: .5em;
+    margin-bottom: 1em;
+    opacity: .5;
+}
+
+.close-repos-button:hover, .close-repos-button:focus {
+    color: #58a6ff;
+    border: 1px solid #58a6ff;
+    opacity: 1;
+}
+
+.repos {
+    flex-direction: column;
+    display: none;
+    font-size: 1.2rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 2rem;
+}
+
+.repos.active {
+    display: flex;
+}
+
+.repo-item {
+    position: relative;
+    padding: .5em 1em;
+    border-bottom: 1px solid #333; 
+}
+
+.repo-item a:hover, .repo-item a:focus {
+    outline: none;
+    color: #58a6ff;
+}
+
+.repo-item a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+}
+
+.repo-desc {
+    opacity: .5;
+}
