@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { HslColor } from 'src/utils/color-generator';
 import DataSource, { ApiData } from 'src/utils/datasource';
 import { Language } from '../repo-languages.pipe';
@@ -54,7 +55,7 @@ interface Repository {
   `,
   styleUrls: ['./repo-page.component.css']
 })
-export class RepoPageComponent implements OnInit {
+export class RepoPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private _route : ActivatedRoute
@@ -65,6 +66,8 @@ export class RepoPageComponent implements OnInit {
   repo : Repository | null = null
   loading = false
   activeLanguage : string | null = null 
+
+  subscribtions : Subscription[] = []
 
   activateLanguage(event : Event) {
     this.activeLanguage = (event.currentTarget as HTMLElement | undefined)?.dataset['langname'] || null
@@ -83,31 +86,37 @@ export class RepoPageComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this._route.params.subscribe(async (params) => {
-      this.repoName = params['repo_name'] as string
-      this.owner = params['owner'] as string
+    this.subscribtions.push(
+      this._route.params.subscribe(async (params) => {
+        this.repoName = params['repo_name'] as string
+        this.owner = params['owner'] as string
 
-      this.loading = true
-      const repo = await Promise.all([
-        DataSource.getRepositoryLanguages(this.owner, this.repoName).catch(_ => null),
-        DataSource.getRepositoryReadme(this.owner, this.repoName).catch(_ => null)
-      ]).catch(e => {
-        console.error(e)
-        return null
+        this.loading = true
+        const repo = await Promise.all([
+          DataSource.getRepositoryLanguages(this.owner, this.repoName).catch(_ => null),
+          DataSource.getRepositoryReadme(this.owner, this.repoName).catch(_ => null)
+        ]).catch(e => {
+          console.error(e)
+          return null
+        })
+        this.loading = false
+
+        if (repo === null) {
+          this.repo = null
+          return
+        }
+
+        const [ languages, readme ] = repo
+        this.repo = {
+          languages,
+          readme
+        }
       })
-      this.loading = false
+    )
+  }
 
-      if (repo === null) {
-        this.repo = null
-        return
-      }
-
-      const [ languages, readme ] = repo
-      this.repo = {
-        languages,
-        readme
-      }
-    })
+  ngOnDestroy(): void {
+      this.subscribtions.forEach(sub => sub.unsubscribe())
   }
 
 }
