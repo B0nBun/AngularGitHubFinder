@@ -1,6 +1,7 @@
 # GitHub Find
-This project was developed for educational purposes, to get more familiar with Angular
-It uses open GitHub API and (as already said) Angular framework
+This project was developed for educational purposes, to get more familiar with Angular.
+
+It uses open GitHub API and (as I already said) Angular framework
 
 ## Development server
 
