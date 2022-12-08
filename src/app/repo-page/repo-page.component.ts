@@ -16,24 +16,24 @@ interface Repository {
 @Component({
   selector: 'app-repo-page',
   template: `
-  <main>
+  <main class="flex flex-col gap-4">
     <loader *ngIf="loading; else repoBlock"></loader>
     <ng-template #repoBlock>
       <ng-container *ngIf="repo as repository; else notFound">
-        <h1 class="full-name" *ngIf="repoName !== undefined && owner !== undefined">
-          <a target="_blank" [href]="getFullUrl(owner, repoName)">
+        <h1 class="text-3xl underline" *ngIf="repoName !== undefined && owner !== undefined">
+          <a class="text-inherit hocus:text-blue-400" target="_blank" [href]="getFullUrl(owner, repoName)">
             {{owner}}/{{repoName}}
           </a>
         </h1>
-        <section *ngIf="repository.languages as languages; else languagesNotFoundBlock" class="languages-section">
-          <h2>Langauges</h2>
-          <button class="language-reset-button" [disabled]="activeLanguage === null" (click)="activeLanguage=null">Reset selection</button>
-          <span class="language-range">
-            <span (click)="activateLanguage($event)" [attr.data-langname]="language.name" class="language-range-part" [class.active]="activeLanguage === null || activeLanguage === language.name" [style]="langRangeCustomProperty(language)" *ngFor="let language of languages | repoLanguages"></span>
+        <section class="flex flex-col gap-4" *ngIf="repository.languages as languages; else languagesNotFoundBlock">
+          <h2>Languages</h2>
+          <button class="bg-transparent ring-2 ring-white text-inherit rounded-lg px-2 py-1 enabled:hocus:text-blue-400 enabled:hocus:ring-blue-400 disabled:opacity-50 disabled:text-inherit disabled:border-inherit w-fit" [disabled]="activeLanguage === null" (click)="activeLanguage=null">Reset selection</button>
+          <span class="flex overflow-hidden language-range-part w-80 h-3 rounded-full">
+            <span (click)="activateLanguage($event)" [attr.data-langname]="language.name" class="block h-full w-[var(--percentage)] bg-gray-600 hover:opacity-80 hover:cursor-pointer" [class]="{ 'bg-[color:var(--language-color)]': activeLanguage === null || activeLanguage === language.name }" [style]="langRangeCustomProperty(language)" *ngFor="let language of languages | repoLanguages"></span>
           </span>
-          <ul class="languages-list">
-            <li (click)="activateLanguage($event)" [attr.data-langname]="language.name" [class.active]="activeLanguage === null || activeLanguage === language.name" [style]="langColorCustomProperty(language.color)" *ngFor="let language of languages | repoLanguages">
-              {{language.name}} <i>{{language.bytes}} bytes</i> <br/>
+          <ul class="list-style-type-['- ']">
+            <li class="color-inherit cursor-pointer hover:opacity-80" (click)="activateLanguage($event)" [attr.data-langname]="language.name" [class]="{ 'text-[var(--language-color)]': activeLanguage === null || activeLanguage === language.name }" [style]="langColorCustomProperty(language.color)" *ngFor="let language of languages | repoLanguages">
+              {{language.name}} <i class="opacity-50">{{language.bytes}} bytes</i> <br/>
               <strong>{{language.percentage | number:'1.2-2'}}%</strong>
             </li>
           </ul>
@@ -41,12 +41,12 @@ interface Repository {
         <ng-template #languagesNotFoundBlock>
           <h2>Languages weren't found</h2>
         </ng-template>
-        <section class="readme-section">
-          <pre *ngIf="repository.readme as readme; else readmeNotFoundBlock">
+        <section class="relative p-4 md:p-8 bg-zinc-900 rounded-lg">
+          <pre class="max-w-full readme-pre" *ngIf="repository.readme as readme; else readmeNotFoundBlock">
             {{readme}}
           </pre>
           <ng-template #readmeNotFoundBlock>
-            <h2>\`Readme\` not found</h2>
+            <h2>'Readme' not found</h2>
           </ng-template>
         </section>
         <ng-template #readmeNotFoundBlock>
@@ -58,7 +58,20 @@ interface Repository {
     </ng-template>
   </main>
   `,
-  styleUrls: ['./repo-page.component.css']
+  styles: [`
+      loader {
+        --loader-width: 5rem;
+        --loader-b-width: 5px;
+      }
+
+      .readme-pre {
+        white-space: pre-wrap;       /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+      }
+  `]
 })
 export class RepoPageComponent implements OnInit, OnDestroy {
 

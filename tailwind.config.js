@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   content: [
     "./src/**/*.{html,ts}",
@@ -18,6 +20,7 @@ module.exports = {
         "gh-gray-900": "#24292f",
       }
     },
+    
     keyframes: {
       rotate: {
         from: {
@@ -32,5 +35,9 @@ module.exports = {
       'loading-rotation': 'rotate 1s infinite'
     }
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant('hocus', ['&:hover', '&:focus'])
+    })
+  ],
 }

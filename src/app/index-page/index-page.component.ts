@@ -9,7 +9,6 @@ import DataSource, { type ApiData } from 'src/utils/datasource';
   template: `
   <main class="flex flex-col gap-12">
     <search-bar (searchEvent)="navigateToSearchQuery($event)" [(search)]="search" placeholder="Username"></search-bar>
-    <loader></loader>
     <loader class="self-center" *ngIf="loading; else searchResultBlock"></loader>
     <ng-template #searchResultBlock>
       <h2 style="align-self: center" *ngIf="searchQuery.trim().length === 0; else userBlock">Find someone now!</h2>  
