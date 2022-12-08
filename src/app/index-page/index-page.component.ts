@@ -4,18 +4,13 @@ import { filter, map, Subscription } from 'rxjs';
 import DataSource, { type ApiData } from 'src/utils/datasource';
 
 
-// !user !input -> no input
-// !user input -> not found
-// user !input -> user
-// user input -> user
-
 @Component({
   selector: 'app-index-page',
   template: `
-  <main>
+  <main class="flex flex-col gap-12">
     <search-bar (searchEvent)="navigateToSearchQuery($event)" [(search)]="search" placeholder="Username"></search-bar>
 
-    <loader *ngIf="loading; else searchResultBlock"></loader>
+    <loader class="self-center" *ngIf="loading; else searchResultBlock"></loader>
     <ng-template #searchResultBlock>
       <h2 style="align-self: center" *ngIf="searchQuery.trim().length === 0; else userBlock">Find someone now!</h2>  
       <ng-template #userBlock>
@@ -30,7 +25,12 @@ import DataSource, { type ApiData } from 'src/utils/datasource';
     
   </main>
   `,
-  styleUrls: ['./index-page.component.css']
+  styles: [`
+    loader {
+      --loader-b-width: 5px;
+      --loader-width: 5rem;
+    }
+  `]
 })
 export class IndexPageComponent implements OnInit, OnDestroy {
 
