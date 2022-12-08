@@ -18,6 +18,19 @@ module.exports = {
         "gh-gray-900": "#24292f",
       }
     },
+    keyframes: {
+      rotate: {
+        from: {
+          transform: 'rotate(0deg)'
+        },
+        to: {
+          transform: 'rotate(360deg)'
+        }
+      }
+    },
+    animation: {
+      'loading-rotation': 'rotate 1s infinite'
+    }
   },
   plugins: [],
 }
